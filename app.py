@@ -2,7 +2,10 @@ from flask import Flask, render_template, request
 import yfinance as yf
 import matplotlib.pyplot as plt
 import os
+from dotenv import load_dotenv
 import requests
+
+load_dotenv()
 
 from category_map import category_map  # Category-to-best-performer mapping
 from company_to_sector import company_to_sector  # Company-to-sector mapping
@@ -11,8 +14,10 @@ from company_to_sector import company_to_sector  # Company-to-sector mapping
 app = Flask(__name__)
 
 # OpenAI API Key
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
+if not OPENAI_API_KEY:
+    raise ValueError("OpenAI API key not found. Please set it as an environment variable.")
 # NewsAPI Key
 NEWS_API_KEY = "37ccccdcb6c944a890b94464485a2205"
 
